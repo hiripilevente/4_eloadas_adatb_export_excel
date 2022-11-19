@@ -33,7 +33,7 @@ namespace adatb_export_excel
             {
                 xlApp = new Excel.Application();
                 xlWB = xlApp.Workbooks.Add();
-                xlSheet = xlWB.ActiveSheet();
+                xlSheet = xlWB.ActiveSheet;
 
                 CreateTable();
 
@@ -48,6 +48,7 @@ namespace adatb_export_excel
                 xlApp = null;
                 xlWB = null;
             }
+
         }
 
         private void CreateTable()
@@ -91,8 +92,31 @@ namespace adatb_export_excel
             r = xlSheet.get_Range(GetCell(2, 1), GetCell(Flats.Count + 1, headers.Length));
             r.Value = values;
             r = xlSheet.get_Range(GetCell(2, 9),
-                        GetCell(Flats.Count, 9));
+                        GetCell(Flats.Count + 1, 9));
             r.Value = "= 1000000*" + GetCell(2,8) + "/" + GetCell(2,7);
+
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            r = xlSheet.UsedRange;
+            r.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+            r = xlSheet.get_Range(GetCell(2, 1),
+                        GetCell(Flats.Count + 1, 1));
+            r.Font.Bold = true;
+            r.Interior.Color = Color.LightYellow;
+
+            r = xlSheet.get_Range(GetCell(2, 9),
+                       GetCell(Flats.Count + 1, 9));
+            r.Interior.Color = Color.LightGreen;
+            r.NumberFormat = "0.00";
+
+
         }
 
         private string GetCell(int x, int y)
