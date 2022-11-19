@@ -11,10 +11,20 @@ using System.Windows.Forms;
 namespace adatb_export_excel
 {
     public partial class Form1 : Form
+
     {
+        List<Flat> Flats;
+        RealEstateEntities context = new RealEstateEntities();
+
+        void LoadData()
+        {
+            Flats = context.Flat.ToList();
+        }
         public Form1()
         {
             InitializeComponent();
+            LoadData();
+
         }
     }
 }
