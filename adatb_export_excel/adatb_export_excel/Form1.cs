@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel; // ad neki egy nevet, az excel helyére lehetne teljesen mast írni
+using System.Reflection;
 
 namespace adatb_export_excel
 {
